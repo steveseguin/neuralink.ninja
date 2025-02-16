@@ -3,127 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuralink Ninja - Open Source Brain Implant Hacking</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Neuralink Ninja - Open Source Neural Enhancement</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #00ffcc;
+            --primary-dark: #00cca3;
+            --bg-dark: #0a0a0a;
+            --text-light: #f0f0f0;
+            --accent: #FF3366;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: #0a0a0a;
-            color: #f0f0f0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         header {
-            background-color: #111;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 2px solid #00ffcc;
+            background-color: rgba(17, 17, 17, 0.95);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
         }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            color: #00ffcc;
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo h1 {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.8em;
+            color: var(--primary);
+        }
+
+        .logo svg {
+            height: 40px;
+            width: 40px;
+        }
+
         nav {
             display: flex;
-            justify-content: center;
-            margin: 20px 0;
+            gap: 30px;
         }
+
         nav a {
-            margin: 0 15px;
-            color: #f0f0f0;
+            color: var(--text-light);
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1rem;
+            font-weight: 600;
             transition: color 0.3s;
+            position: relative;
         }
-        nav a:hover {
-            color: #00ffcc;
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
         }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
         .hero {
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 80vh;
-            text-align: center;
-            background: linear-gradient(135deg, #00ffcc 0%, #003333 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.1) 0%, rgba(10, 10, 10, 1) 70%);
         }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, rgba(0, 255, 204, 0.1) 25%, transparent 25%) -50px 0,
+                linear-gradient(-45deg, rgba(0, 255, 204, 0.1) 25%, transparent 25%) -50px 0,
+                linear-gradient(45deg, transparent 75%, rgba(0, 255, 204, 0.1) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(0, 255, 204, 0.1) 75%);
+            background-size: 100px 100px;
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
         .hero h2 {
-            font-size: 3em;
-            margin: 0 0 20px 0;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
         }
+
         .hero p {
-            font-size: 1.5em;
-            margin-bottom: 30px;
+            font-size: 1.4em;
+            margin-bottom: 40px;
+            color: rgba(240, 240, 240, 0.9);
         }
-        .hero a {
+
+        .cta-button {
             display: inline-block;
-            background-color: #00ffcc;
-            color: #0a0a0a;
-            padding: 15px 30px;
+            background-color: var(--primary);
+            color: var(--bg-dark);
+            padding: 15px 40px;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 30px;
             font-size: 1.2em;
-            transition: background-color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .hero a:hover {
-            background-color: #00cca3;
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
         }
-        section {
-            padding: 50px 20px;
-            text-align: center;
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
-        section h3 {
-            font-size: 2em;
+
+        .feature-card {
+            background: rgba(17, 17, 17, 0.7);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
             margin-bottom: 20px;
         }
-        section p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 0 auto 30px auto;
+
+        section {
+            padding: 100px 0;
         }
-        footer {
-            background-color: #111;
+
+        section h3 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
             text-align: center;
+            color: var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stat-item {
             padding: 20px;
-            border-top: 2px solid #00ffcc;
-            font-size: 0.9em;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: rgba(240, 240, 240, 0.8);
+        }
+
+        footer {
+            background-color: rgba(17, 17, 17, 0.95);
+            padding: 40px 0;
+            border-top: 1px solid rgba(0, 255, 204, 0.2);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(240, 240, 240, 0.1);
+            color: rgba(240, 240, 240, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 2.5em;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Neuralink Ninja</h1>
-        <p>Open Source Tools to Unlock Your Brain Implant's Full Potential</p>
+        <div class="container header-content">
+            <div class="logo">
+                <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 5L5 25L25 45L45 25L25 5Z" stroke="#00ffcc" stroke-width="2"/>
+                    <circle cx="25" cy="25" r="10" stroke="#00ffcc" stroke-width="2"/>
+                    <path d="M25 15V35M15 25H35" stroke="#00ffcc" stroke-width="2"/>
+                </svg>
+                <h1>Neuralink Ninja</h1>
+            </div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#projects">Projects</a>
+                <a href="#community">Community</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
     </header>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#community">Community</a>
-        <a href="#contact">Contact</a>
-    </nav>
+
     <div class="hero">
-        <h2>Hacking Proprietary Brain Implants, Open Source Style</h2>
-        <p>Join the revolution in neurotech freedom. Open your mind, unlock your implant.</p>
-        <a href="#get-started">Get Started</a>
+        <div class="container hero-content">
+            <h2>Unlock Your Neural Potential</h2>
+            <p>Open-source tools for customizing and enhancing your neural interface. Take control of your cognitive augmentation.</p>
+            <a href="#get-started" class="cta-button">Start Enhancing</a>
+        </div>
     </div>
+
+    <section id="features">
+        <div class="container">
+            <h3>Core Features</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h4>Neural Stack Integration</h4>
+                    <p>Seamlessly interface with existing neural implant architectures while maintaining security and stability.</p>
+                </div>
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc">
+                        <path d="M12 15v3m-3-3h6m-6-4h6m-6-4h6M5 3v18M19 3v18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h4>Custom Neural Protocols</h4>
+                    <p>Design and implement your own neural processing algorithms with our open framework.</p>
+                </div>
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h4>Real-time Monitoring</h4>
+                    <p>Advanced diagnostics and performance metrics for your neural enhancement setup.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" style="background: rgba(0, 255, 204, 0.05);">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Custom Protocols</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="about">
-        <h3>About Neuralink Ninja</h3>
-        <p>We create open source software to help users take control of their proprietary brain implants, enabling customization, enhanced functionality, and true ownership of their neural hardware.</p>
+        <div class="container">
+            <h3>About Our Mission</h3>
+            <p>Neuralink Ninja empowers users to take full control of their neural augmentation hardware through open-source solutions. We believe in transparency, security, and user autonomy in the growing field of neural enhancement technology.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Security First</h4>
+                    <p>All our tools undergo rigorous security auditing and implement military-grade encryption protocols.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Community Driven</h4>
+                    <p>Join thousands of developers and enthusiasts contributing to the future of neural enhancement.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Regular Updates</h4>
+                    <p>Continuous improvement with frequent updates and new feature releases based on community feedback.</p>
+                </div>
+            </div>
+        </div>
     </section>
-    <section id="projects">
-        <h3>Our Projects</h3>
-        <p>Explore our library of open source tools, from firmware patches to real-time neural data dashboards and implant communication protocols.</p>
-    </section>
-    <section id="community">
-        <h3>Join the Community</h3>
-        <p>Connect with other neurotech enthusiasts, share knowledge, contribute code, and help us push the boundaries of brain implant technology.</p>
-    </section>
-    <section id="contact">
-        <h3>Contact Us</h3>
-        <p>Have questions or want to get involved? Reach out to us at <a href="mailto:contact@neuralink.ninja">contact@neuralink.ninja</a>.</p>
-    </section>
+
     <footer>
-        <p>&copy; 2025 Neuralink Ninja. All rights reserved. | <a href="#privacy">Privacy Policy</a></p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#docs">Documentation</a></li>
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="#tutorials">Tutorials</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="#github">GitHub</a></li>
+                        <li><a href="#discord">Discord</a></li>
+                        <li><a href="#forum">Forum</a></li>
+                        <li><a href="#contribute">Contribute</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#status">System Status</a></li>
+                        <li><a href="#security">Security</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#compliance">Compliance</a></li>
+                        <li><a href="#licenses">Licenses</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Neuralink Ninja. All rights reserved. Building the future of neural enhancement.</p>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
