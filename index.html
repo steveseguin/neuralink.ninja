@@ -431,6 +431,72 @@
             font-size: 0.82rem;
         }
 
+        /* Animations */
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-badge { animation: fade-up 0.6s ease-out; }
+        .hero h2 { animation: fade-up 0.6s ease-out 0.1s both; }
+        .hero > .container > p { animation: fade-up 0.6s ease-out 0.2s both; }
+        .hero-install { animation: fade-up 0.6s ease-out 0.3s both; }
+        .hero-buttons { animation: fade-up 0.6s ease-out 0.4s both; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger > * {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .stagger.visible > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger.visible > :nth-child(1) { transition-delay: 0s; }
+        .stagger.visible > :nth-child(2) { transition-delay: 0.06s; }
+        .stagger.visible > :nth-child(3) { transition-delay: 0.12s; }
+        .stagger.visible > :nth-child(4) { transition-delay: 0.18s; }
+        .stagger.visible > :nth-child(5) { transition-delay: 0.24s; }
+        .stagger.visible > :nth-child(6) { transition-delay: 0.30s; }
+        .stagger.visible > :nth-child(7) { transition-delay: 0.36s; }
+        .stagger.visible > :nth-child(8) { transition-delay: 0.42s; }
+
+        /* EEG waveform in hero */
+        .hero-waveform {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            opacity: 0.08;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-waveform svg {
+            width: 200%;
+            height: 100%;
+            animation: wave-scroll 12s linear infinite;
+        }
+
+        @keyframes wave-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .mobile-toggle { display: block; }
@@ -505,16 +571,21 @@
                 <a href="#" class="cta-secondary cta-button" target="_blank" rel="noopener">View Source</a>
             </div>
         </div>
+        <div class="hero-waveform">
+            <svg viewBox="0 0 2400 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M0 60 L30 60 L40 20 L50 100 L60 40 L70 80 L80 60 L120 60 L130 15 L140 105 L150 35 L160 85 L170 60 L240 60 L250 25 L260 95 L270 45 L280 75 L290 60 L360 60 L370 10 L380 110 L390 30 L400 90 L410 60 L480 60 L490 20 L500 100 L510 40 L520 80 L530 60 L600 60 L610 25 L620 95 L630 45 L640 75 L650 60 L720 60 L730 15 L740 105 L750 35 L760 85 L770 60 L840 60 L850 20 L860 100 L870 40 L880 80 L890 60 L960 60 L970 10 L980 110 L990 30 L1000 90 L1010 60 L1080 60 L1090 25 L1100 95 L1110 45 L1120 75 L1130 60 L1200 60 L1210 20 L1220 100 L1230 40 L1240 80 L1250 60 L1320 60 L1330 15 L1340 105 L1350 35 L1360 85 L1370 60 L1440 60 L1450 25 L1460 95 L1470 45 L1480 75 L1490 60 L1560 60 L1570 10 L1580 110 L1590 30 L1600 90 L1610 60 L1680 60 L1690 20 L1700 100 L1710 40 L1720 80 L1730 60 L1800 60 L1810 25 L1820 95 L1830 45 L1840 75 L1850 60 L1920 60 L1930 15 L1940 105 L1950 35 L1960 85 L1970 60 L2040 60 L2050 20 L2060 100 L2070 40 L2080 80 L2090 60 L2160 60 L2170 10 L2180 110 L2190 30 L2200 90 L2210 60 L2280 60 L2290 25 L2300 95 L2310 45 L2320 75 L2330 60 L2400 60" stroke="#00ffcc" stroke-width="2" fill="none"/>
+            </svg>
+        </div>
     </div>
 
     <!-- Roadmap -->
     <section id="roadmap">
         <div class="container">
-            <div class="section-label">Where We Actually Are</div>
-            <h3>Project Roadmap</h3>
-            <p class="section-desc">Honest status of what works, what's in progress, and what we're planning. No vaporware.</p>
+            <div class="section-label reveal">Where We Actually Are</div>
+            <h3 class="reveal">Project Roadmap</h3>
+            <p class="section-desc reveal">Honest status of what works, what's in progress, and what we're planning. No vaporware.</p>
 
-            <div class="roadmap">
+            <div class="roadmap stagger">
                 <div class="roadmap-item">
                     <div class="roadmap-phase">v0.1</div>
                     <div class="roadmap-desc"><strong>Signal processing core</strong> &mdash; Bandpass, notch, CAR filters. FFT spectral analysis. Basic artifact rejection.</div>
@@ -606,11 +677,11 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
     <!-- Hardware -->
     <section id="hardware">
         <div class="container">
-            <div class="section-label">Tested Hardware</div>
-            <h3>Devices we've actually plugged in</h3>
-            <p class="section-desc">First-class drivers for these. Community contributions welcome for anything else. If it speaks LSL, it probably works already.</p>
+            <div class="section-label reveal">Tested Hardware</div>
+            <h3 class="reveal">Devices we've actually plugged in</h3>
+            <p class="section-desc reveal">First-class drivers for these. Community contributions welcome for anything else. If it speaks LSL, it probably works already.</p>
 
-            <div class="hardware-grid">
+            <div class="hardware-grid stagger">
                 <div class="hardware-card">
                     <h4>OpenBCI Cyton</h4>
                     <p>8ch research-grade</p>
@@ -658,11 +729,11 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
     <!-- Contributing -->
     <section id="contributing" style="background: rgba(0, 255, 204, 0.02);">
         <div class="container" style="max-width: 780px; text-align: center;">
-            <div class="section-label">Open Source</div>
-            <h3>We need help</h3>
-            <p class="section-desc" style="margin-left: auto; margin-right: auto;">This is a nights-and-weekends project that wants to be more than that. If you know signal processing, BCI paradigms, or just want better docs &mdash; PRs are open.</p>
+            <div class="section-label reveal">Open Source</div>
+            <h3 class="reveal">We need help</h3>
+            <p class="section-desc reveal" style="margin-left: auto; margin-right: auto;">This is a nights-and-weekends project that wants to be more than that. If you know signal processing, BCI paradigms, or just want better docs &mdash; PRs are open.</p>
 
-            <div class="contrib-steps">
+            <div class="contrib-steps stagger">
                 <div class="contrib-step">
                     <div class="step-num">01</div>
                     <h4>Fork &amp; Clone</h4>
@@ -733,6 +804,14 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
                 navigator.clipboard.writeText('pip install neural-ninja').catch(() => {});
             });
         }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
