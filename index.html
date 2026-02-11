@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuralink Ninja - Open Source Neural Enhancement</title>
+    <meta name="description" content="Neuralink Ninja is an open-source toolkit for brain-computer interface development. EEG signal processing, OpenBCI hardware support, Python and C++ SDKs, and real-time neural data streaming.">
+    <title>Neuralink Ninja - Open-Source Brain-Computer Interface Toolkit</title>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2300ffcc"/><stop offset="100%" style="stop-color:%23FF3366"/></linearGradient></defs><path d="M16 4L4 16l12 12 12-12L16 4z" fill="url(%23g)" stroke="%2300ffcc" stroke-width="1"/><circle cx="16" cy="16" r="6" fill="none" stroke="%2300ffcc" stroke-width="1"/><path d="M16 10v12M10 16h12" stroke="%2300ffcc" stroke-width="1"/></svg>'>
     <style>
@@ -11,14 +12,21 @@
             --primary: #00ffcc;
             --primary-dark: #00cca3;
             --bg-dark: #0a0a0a;
+            --bg-card: #111111;
             --text-light: #f0f0f0;
+            --text-muted: rgba(240, 240, 240, 0.7);
             --accent: #FF3366;
+            --border: rgba(0, 255, 204, 0.2);
         }
-        
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -29,11 +37,17 @@
             line-height: 1.6;
         }
 
+        code, pre, .mono {
+            font-family: 'Share Tech Mono', monospace;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
+
+        /* ── Header ─────────────────────────────────────── */
 
         header {
             background-color: rgba(17, 17, 17, 0.95);
@@ -43,7 +57,7 @@
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            border-bottom: 1px solid var(--border);
         }
 
         .header-content {
@@ -56,6 +70,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            text-decoration: none;
         }
 
         .logo h1 {
@@ -72,12 +87,13 @@
         nav {
             display: flex;
             gap: 30px;
+            align-items: center;
         }
 
         nav a {
             color: var(--text-light);
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             transition: color 0.3s;
             position: relative;
@@ -98,179 +114,31 @@
             width: 100%;
         }
 
-        .hero {
-            min-height: 100vh;
-            display: flex;
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .nav-github {
+            display: inline-flex;
             align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding: 80px 0;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.1) 0%, rgba(10, 10, 10, 1) 70%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, rgba(0, 255, 204, 0.1) 25%, transparent 25%) -50px 0,
-                linear-gradient(-45deg, rgba(0, 255, 204, 0.1) 25%, transparent 25%) -50px 0,
-                linear-gradient(45deg, transparent 75%, rgba(0, 255, 204, 0.1) 75%),
-                linear-gradient(-45deg, transparent 75%, rgba(0, 255, 204, 0.1) 75%);
-            background-size: 100px 100px;
-            opacity: 0.1;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h2 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .hero p {
-            font-size: 1.4em;
-            margin-bottom: 40px;
-            color: rgba(240, 240, 240, 0.9);
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--primary);
-            color: var(--bg-dark);
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 1.2em;
-            font-weight: 600;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .feature-card {
-            background: rgba(17, 17, 17, 0.7);
-            border: 1px solid rgba(0, 255, 204, 0.2);
-            border-radius: 15px;
-            padding: 30px;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 20px;
-        }
-
-        section {
-            padding: 100px 0;
-        }
-
-        section h3 {
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            text-align: center;
-            color: var(--primary);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin: 60px 0;
-            text-align: center;
-        }
-
-        .stat-item {
-            padding: 20px;
-        }
-
-        .stat-number {
-            font-size: 3em;
-            font-weight: 800;
-            color: var(--primary);
+            gap: 6px;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 6px;
             font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
         }
 
-        .stat-label {
-            font-size: 1.1em;
-            color: rgba(240, 240, 240, 0.8);
+        .nav-github::after {
+            display: none;
         }
 
-        footer {
-            background-color: rgba(17, 17, 17, 0.95);
-            padding: 40px 0;
-            border-top: 1px solid rgba(0, 255, 204, 0.2);
+        .nav-github:hover {
+            background: rgba(0, 255, 204, 0.2);
         }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-section h4 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.2em;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-section a {
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: var(--primary);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(240, 240, 240, 0.1);
-            color: rgba(240, 240, 240, 0.6);
-        }
+        /* ── Mobile Menu ────────────────────────────────── */
 
         .mobile-toggle {
             display: none;
@@ -297,35 +165,695 @@
                 flex-direction: column;
                 padding: 20px;
                 gap: 15px;
-                border-top: 1px solid rgba(0, 255, 204, 0.2);
+                border-top: 1px solid var(--border);
             }
 
             nav.active {
                 display: flex;
             }
+        }
 
+        /* ── Hero ───────────────────────────────────────── */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 120px 0 80px;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 204, 0.08) 0%, rgba(10, 10, 10, 1) 70%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(45deg, rgba(0, 255, 204, 0.1) 25%, transparent 25%) -50px 0,
+                linear-gradient(-45deg, rgba(0, 255, 204, 0.1) 25%, transparent 25%) -50px 0,
+                linear-gradient(45deg, transparent 75%, rgba(0, 255, 204, 0.1) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(0, 255, 204, 0.1) 75%);
+            background-size: 100px 100px;
+            opacity: 0.08;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--primary);
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            background: rgba(0, 255, 204, 0.05);
+        }
+
+        .hero h2 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            line-height: 1.15;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.25em;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-sub {
+            font-size: 1rem !important;
+            margin-bottom: 36px !important;
+            color: rgba(240, 240, 240, 0.5) !important;
+        }
+
+        .hero-install {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(17, 17, 17, 0.9);
+            border: 1px solid var(--border);
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        .hero-install:hover {
+            border-color: var(--primary);
+        }
+
+        .hero-install .dollar {
+            color: var(--text-muted);
+            user-select: none;
+        }
+
+        .hero-install .copy-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-left: 12px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--bg-dark);
+            padding: 14px 36px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            background: transparent;
+            color: var(--text-light);
+            padding: 14px 36px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 1px solid rgba(240, 240, 240, 0.3);
+            transition: all 0.3s;
+        }
+
+        .cta-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* ── Stats Bar ──────────────────────────────────── */
+
+        .stats-bar {
+            background: rgba(0, 255, 204, 0.03);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 48px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.4em;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ── Sections ───────────────────────────────────── */
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        section h3 {
+            font-size: 2.4em;
+            margin-bottom: 16px;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .section-desc {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 640px;
+            margin: 0 auto 50px;
+            font-size: 1.1rem;
+        }
+
+        /* ── Feature Cards ──────────────────────────────── */
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(17, 17, 17, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 28px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 255, 204, 0.4);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .feature-card .tag {
+            display: inline-block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--primary);
+            background: rgba(0, 255, 204, 0.08);
+            border: 1px solid rgba(0, 255, 204, 0.15);
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-top: 14px;
+            margin-right: 6px;
+        }
+
+        /* ── Getting Started / Code Block ───────────────── */
+
+        .getting-started-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .gs-text h3 {
+            text-align: left;
+            font-size: 2em;
+        }
+
+        .gs-text .section-label {
+            text-align: left;
+        }
+
+        .gs-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .gs-text ol {
+            color: var(--text-muted);
+            padding-left: 20px;
+            margin-bottom: 28px;
+        }
+
+        .gs-text ol li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .gs-text ol li strong {
+            color: var(--text-light);
+        }
+
+        .code-block {
+            background: #0d0d0d;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: rgba(0, 255, 204, 0.04);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(240, 240, 240, 0.15);
+        }
+
+        .code-dot:nth-child(1) { background: #ff5f56; }
+        .code-dot:nth-child(2) { background: #ffbd2e; }
+        .code-dot:nth-child(3) { background: #27c93f; }
+
+        .code-header span {
+            margin-left: auto;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .code-block pre {
+            padding: 24px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .code-block code {
+            color: var(--text-light);
+        }
+
+        .code-comment { color: #6a737d; }
+        .code-keyword { color: var(--accent); }
+        .code-string { color: #a5d6ff; }
+        .code-func { color: var(--primary); }
+        .code-number { color: #ffbd2e; }
+
+        /* ── Hardware Section ───────────────────────────── */
+
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .hardware-card {
+            background: rgba(17, 17, 17, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .hardware-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 204, 0.4);
+        }
+
+        .hardware-card h4 {
+            font-size: 1.05em;
+            margin-bottom: 6px;
+            color: var(--text-light);
+        }
+
+        .hardware-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .hardware-card .hw-channels {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-top: 10px;
+        }
+
+        /* ── Community Section ──────────────────────────── */
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .community-card {
+            background: rgba(17, 17, 17, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 28px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .community-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 204, 0.4);
+        }
+
+        .community-card h4 {
+            font-size: 1.15em;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .community-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .community-card a {
+            display: inline-block;
+            margin-top: 14px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .community-card a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* ── Contributing Section ───────────────────────── */
+
+        .contributing-content {
+            max-width: 780px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contributing-content p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .contrib-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 36px 0;
+            text-align: left;
+        }
+
+        .contrib-step {
+            background: rgba(17, 17, 17, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+        }
+
+        .contrib-step .step-num {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .contrib-step h4 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            color: var(--text-light);
+        }
+
+        .contrib-step p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            text-align: left;
+        }
+
+        /* ── Docs Section ───────────────────────────────── */
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .docs-card {
+            background: rgba(17, 17, 17, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: transform 0.3s, border-color 0.3s;
+            display: block;
+        }
+
+        .docs-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 204, 0.4);
+        }
+
+        .docs-card h4 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .docs-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ── Footer ─────────────────────────────────────── */
+
+        footer {
+            background-color: rgba(17, 17, 17, 0.95);
+            padding: 60px 0 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 12px;
+            max-width: 280px;
+        }
+
+        .footer-brand .footer-logo {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.3em;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .footer-section h4 {
+            color: var(--text-light);
+            margin-bottom: 16px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(240, 240, 240, 0.08);
+            color: rgba(240, 240, 240, 0.4);
+            font-size: 0.85rem;
+        }
+
+        .copyright a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* ── Responsive ─────────────────────────────────── */
+
+        @media (max-width: 768px) {
             .hero h2 {
-                font-size: 2.5em;
+                font-size: 2.2em;
+            }
+
+            .hero p {
+                font-size: 1.05em;
             }
 
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .getting-started-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .gs-text h3,
+            .gs-text .section-label {
+                text-align: center;
+            }
+
+            .gs-text p,
+            .gs-text ol {
+                text-align: left;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .code-block pre {
+                font-size: 0.8rem;
+            }
+
+            section h3 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-install {
+                font-size: 0.88rem;
+                padding: 12px 18px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .stat-number {
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- ── Header ──────────────────────────────────────── -->
+
     <header>
         <div class="container header-content">
-            <div class="logo">
+            <a href="#" class="logo">
                 <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M25 5L5 25L25 45L45 25L25 5Z" stroke="#00ffcc" stroke-width="2"/>
                     <circle cx="25" cy="25" r="10" stroke="#00ffcc" stroke-width="2"/>
                     <path d="M25 15V35M15 25H35" stroke="#00ffcc" stroke-width="2"/>
                 </svg>
                 <h1>Neuralink Ninja</h1>
-            </div>
-            <button class="mobile-toggle" aria-label="Toggle menu">
+            </a>
+            <button class="mobile-toggle" aria-label="Toggle navigation menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -333,143 +861,456 @@
                 </svg>
             </button>
             <nav>
-                <a href="#features">Features</a>
-                <a href="#projects">Projects</a>
+                <a href="#docs">Docs</a>
+                <a href="#getting-started">Get Started</a>
+                <a href="#features">Toolkit</a>
+                <a href="#hardware">Hardware</a>
                 <a href="#community">Community</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="#contributing">Contribute</a>
+                <a href="https://github.com/neuralink-ninja" class="nav-github" target="_blank" rel="noopener">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                    GitHub
+                </a>
             </nav>
         </div>
     </header>
 
+    <!-- ── Hero ────────────────────────────────────────── -->
+
     <div class="hero">
         <div class="container hero-content">
-            <h2>Unlock Your Neural Potential</h2>
-            <p>Open-source tools for customizing and enhancing your neural interface. Take control of your cognitive augmentation.</p>
-            <a href="#get-started" class="cta-button">Start Enhancing</a>
+            <div class="hero-badge">v0.9.4 &mdash; Now with NeuroGPT Decoder Support</div>
+            <h2>The Open-Source Toolkit for Brain-Computer Interfaces</h2>
+            <p>Build BCI applications with production-grade signal processing, real-time neural data streaming, and machine learning pipelines. Compatible with OpenBCI, Muse, and 12+ EEG devices.</p>
+            <p class="hero-sub">Python &amp; C++ SDKs &middot; MIT Licensed &middot; Built by researchers, for everyone</p>
+
+            <div class="hero-install" onclick="navigator.clipboard.writeText('pip install neuralink-ninja')" title="Click to copy">
+                <span class="dollar">$</span> pip install neuralink-ninja
+                <span class="copy-hint">click to copy</span>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="#getting-started" class="cta-button">Get Started</a>
+                <a href="#docs" class="cta-secondary">Read the Docs</a>
+            </div>
         </div>
     </div>
 
-    <section id="features">
-        <div class="container">
-            <h3>Core Features</h3>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <h4>Neural Stack Integration</h4>
-                    <p>Seamlessly interface with existing neural implant architectures while maintaining security and stability.</p>
-                </div>
-                <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc">
-                        <path d="M12 15v3m-3-3h6m-6-4h6m-6-4h6M5 3v18M19 3v18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <h4>Custom Neural Protocols</h4>
-                    <p>Design and implement your own neural processing algorithms with our open framework.</p>
-                </div>
-                <div class="feature-card">
-                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc">
-                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <h4>Real-time Monitoring</h4>
-                    <p>Advanced diagnostics and performance metrics for your neural enhancement setup.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- ── Stats Bar ───────────────────────────────────── -->
 
-    <section id="stats" style="background: rgba(0, 255, 204, 0.05);">
+    <div class="stats-bar">
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">10K+</div>
-                    <div class="stat-label">Active Users</div>
+                    <div class="stat-number">2.5K</div>
+                    <div class="stat-label">GitHub Stars</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Custom Protocols</div>
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Contributors</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">99.9%</div>
-                    <div class="stat-label">Uptime</div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Supported Devices</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Support</div>
+                    <div class="stat-number">MIT</div>
+                    <div class="stat-label">Licensed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Features / Toolkit ──────────────────────────── -->
+
+    <section id="features">
+        <div class="container">
+            <div class="section-label">Toolkit</div>
+            <h3>Everything You Need for BCI Development</h3>
+            <p class="section-desc">A modular, batteries-included framework for acquiring, processing, and decoding neural signals. Use the pieces you need, ignore the rest.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                    </svg>
+                    <h4>Signal Processing Library</h4>
+                    <p>Bandpass, notch, and adaptive filters optimized for EEG/EMG/ECoG data. ICA and CSP artifact removal, FFT-based spectral analysis, and time-frequency decomposition out of the box.</p>
+                    <span class="tag">Python</span>
+                    <span class="tag">C++</span>
+                    <span class="tag">NumPy</span>
+                </div>
+
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2"/>
+                        <path d="M8 21h8M12 17v4"/>
+                    </svg>
+                    <h4>Device Drivers &amp; LSL Streaming</h4>
+                    <p>Unified API for OpenBCI Cyton/Ganglion, Muse 2/S, Emotiv EPOC, and more. Streams data over Lab Streaming Layer (LSL) for real-time multi-device synchronization.</p>
+                    <span class="tag">LSL</span>
+                    <span class="tag">Bluetooth</span>
+                    <span class="tag">Serial</span>
+                </div>
+
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    <h4>Real-Time Visualization</h4>
+                    <p>Live EEG topographic maps, time-series plots, and spectrograms rendered at 60fps. Built on a lightweight WebSocket server so you can visualize from any browser.</p>
+                    <span class="tag">WebSocket</span>
+                    <span class="tag">Canvas</span>
+                    <span class="tag">React</span>
+                </div>
+
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <h4>Neural Decoding &amp; ML Pipelines</h4>
+                    <p>Pre-built pipelines for motor imagery classification, P300 spellers, SSVEP detection, and emotion recognition. Integrates with PyTorch, scikit-learn, and MNE-Python.</p>
+                    <span class="tag">PyTorch</span>
+                    <span class="tag">scikit-learn</span>
+                    <span class="tag">MNE</span>
+                </div>
+
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    <h4>Data Recording &amp; Export</h4>
+                    <p>Record sessions in EDF+, BDF, GDF, and HDF5 formats with full BIDS-compatible metadata. Annotate epochs, mark events, and export to MNE or EEGLAB for offline analysis.</p>
+                    <span class="tag">EDF+</span>
+                    <span class="tag">HDF5</span>
+                    <span class="tag">BIDS</span>
+                </div>
+
+                <div class="feature-card">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                        <line x1="4" y1="22" x2="4" y2="15"/>
+                    </svg>
+                    <h4>Experiment Framework</h4>
+                    <p>Design and run BCI experiments with stimulus presentation, trial randomization, and event synchronization. PsychoPy integration for visual and auditory paradigms.</p>
+                    <span class="tag">PsychoPy</span>
+                    <span class="tag">Events</span>
+                    <span class="tag">Markers</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="about">
+    <!-- ── Getting Started ─────────────────────────────── -->
+
+    <section id="getting-started" style="background: rgba(0, 255, 204, 0.02);">
         <div class="container">
-            <h3>About Our Mission</h3>
-            <p>Neuralink Ninja empowers users to take full control of their neural augmentation hardware through open-source solutions. We believe in transparency, security, and user autonomy in the growing field of neural enhancement technology.</p>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4>Security First</h4>
-                    <p>All our tools undergo rigorous security auditing and implement military-grade encryption protocols.</p>
+            <div class="getting-started-layout">
+                <div class="gs-text">
+                    <div class="section-label">Quick Start</div>
+                    <h3>From Install to Live EEG in 5 Minutes</h3>
+                    <p>Neuralink Ninja runs on Python 3.9+ and supports macOS, Linux, and Windows. Install with pip, connect your device, and start streaming data.</p>
+                    <ol>
+                        <li><strong>Install the package</strong> via pip or from source on GitHub</li>
+                        <li><strong>Connect your EEG device</strong> &mdash; auto-discovery handles the rest</li>
+                        <li><strong>Start streaming</strong> with a few lines of Python</li>
+                        <li><strong>Process, visualize, and decode</strong> neural data in real time</li>
+                    </ol>
+                    <a href="#docs" class="cta-button">Read Full Guide</a>
                 </div>
-                <div class="feature-card">
-                    <h4>Community Driven</h4>
-                    <p>Join thousands of developers and enthusiasts contributing to the future of neural enhancement.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Regular Updates</h4>
-                    <p>Continuous improvement with frequent updates and new feature releases based on community feedback.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <div class="code-dot"></div>
+                        <div class="code-dot"></div>
+                        <div class="code-dot"></div>
+                        <span>quickstart.py</span>
+                    </div>
+                    <pre><code><span class="code-comment"># Install: pip install neuralink-ninja</span>
+
+<span class="code-keyword">from</span> neuralink_ninja <span class="code-keyword">import</span> <span class="code-func">Board</span>, <span class="code-func">FilterPipeline</span>
+<span class="code-keyword">from</span> neuralink_ninja.viz <span class="code-keyword">import</span> <span class="code-func">LivePlot</span>
+
+<span class="code-comment"># Auto-detect connected EEG device</span>
+board = <span class="code-func">Board</span>.<span class="code-func">auto_connect</span>()
+
+<span class="code-comment"># Build a signal processing chain</span>
+pipeline = <span class="code-func">FilterPipeline</span>([
+    (<span class="code-string">"bandpass"</span>, {<span class="code-string">"low"</span>: <span class="code-number">1</span>, <span class="code-string">"high"</span>: <span class="code-number">40</span>}),
+    (<span class="code-string">"notch"</span>,    {<span class="code-string">"freq"</span>: <span class="code-number">60</span>}),
+    (<span class="code-string">"car"</span>,      {}),  <span class="code-comment"># Common Avg Ref</span>
+])
+
+<span class="code-comment"># Stream and visualize in real time</span>
+board.<span class="code-func">start_stream</span>()
+plot = <span class="code-func">LivePlot</span>(board, pipeline, channels=[<span class="code-number">0</span>,<span class="code-number">1</span>,<span class="code-number">2</span>,<span class="code-number">3</span>])
+plot.<span class="code-func">show</span>()
+
+<span class="code-comment"># Read a 2-second epoch of filtered data</span>
+epoch = board.<span class="code-func">get_data</span>(seconds=<span class="code-number">2</span>)
+filtered = pipeline.<span class="code-func">apply</span>(epoch)
+<span class="code-keyword">print</span>(f<span class="code-string">"Shape: {filtered.shape}"</span>)
+<span class="code-comment"># &gt;&gt; Shape: (4, 500)  # 4 channels, 250Hz</span></code></pre>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- ── Supported Hardware ──────────────────────────── -->
+
+    <section id="hardware">
+        <div class="container">
+            <div class="section-label">Compatibility</div>
+            <h3>Supported Hardware</h3>
+            <p class="section-desc">Neuralink Ninja provides first-class driver support for popular consumer and research-grade EEG devices. Community-contributed drivers extend support further.</p>
+
+            <div class="hardware-grid">
+                <div class="hardware-card">
+                    <h4>OpenBCI Cyton</h4>
+                    <p>8-channel, 250Hz, research-grade biosensing</p>
+                    <div class="hw-channels">8 ch &middot; 250 Hz &middot; 24-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>OpenBCI Ganglion</h4>
+                    <p>4-channel, affordable entry point for BCI</p>
+                    <div class="hw-channels">4 ch &middot; 200 Hz &middot; 24-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>Muse 2</h4>
+                    <p>Consumer EEG headband with PPG and accelerometer</p>
+                    <div class="hw-channels">4 ch &middot; 256 Hz &middot; 12-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>Muse S</h4>
+                    <p>Sleep-focused EEG with soft fabric headband</p>
+                    <div class="hw-channels">4 ch &middot; 256 Hz &middot; 12-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>Emotiv EPOC X</h4>
+                    <p>14-channel wireless EEG for research applications</p>
+                    <div class="hw-channels">14 ch &middot; 256 Hz &middot; 14-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>Emotiv Insight</h4>
+                    <p>5-channel minimal-setup EEG headset</p>
+                    <div class="hw-channels">5 ch &middot; 128 Hz &middot; 14-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>g.tec Unicorn</h4>
+                    <p>Hybrid 8-channel dry-electrode EEG</p>
+                    <div class="hw-channels">8 ch &middot; 250 Hz &middot; 24-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>BrainBit Flex</h4>
+                    <p>Compact 4-channel BLE EEG for mobile BCI</p>
+                    <div class="hw-channels">4 ch &middot; 250 Hz &middot; 24-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>NeuroSky MindWave</h4>
+                    <p>Single-channel EEG for education and prototyping</p>
+                    <div class="hw-channels">1 ch &middot; 512 Hz &middot; 12-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>FreeEEG32</h4>
+                    <p>Open-source 32-channel ADS1299-based board</p>
+                    <div class="hw-channels">32 ch &middot; 512 Hz &middot; 24-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>Cognionics HD-EEG</h4>
+                    <p>High-density dry-electrode EEG system</p>
+                    <div class="hw-channels">64 ch &middot; 500 Hz &middot; 24-bit</div>
+                </div>
+                <div class="hardware-card">
+                    <h4>Any LSL Source</h4>
+                    <p>Connect any device that supports Lab Streaming Layer</p>
+                    <div class="hw-channels">N ch &middot; Custom &middot; Generic</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Documentation ───────────────────────────────── -->
+
+    <section id="docs" style="background: rgba(0, 255, 204, 0.02);">
+        <div class="container">
+            <div class="section-label">Documentation</div>
+            <h3>Learn Neuralink Ninja</h3>
+            <p class="section-desc">Comprehensive guides for every experience level. From first-time EEG users to researchers building custom neural decoders.</p>
+
+            <div class="docs-grid">
+                <a href="#getting-started" class="docs-card">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+                        Installation Guide
+                    </h4>
+                    <p>System requirements, pip/conda install, building from source, and verifying your setup.</p>
+                </a>
+                <a href="#getting-started" class="docs-card">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        API Reference
+                    </h4>
+                    <p>Full reference for Board, FilterPipeline, Decoder, and all public modules with type annotations.</p>
+                </a>
+                <a href="#getting-started" class="docs-card">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        Tutorials
+                    </h4>
+                    <p>Step-by-step guides: motor imagery classifier, P300 speller, neurofeedback app, and more.</p>
+                </a>
+                <a href="#getting-started" class="docs-card">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        Hardware Setup
+                    </h4>
+                    <p>Device-specific guides for electrode placement, Bluetooth pairing, firmware updates, and troubleshooting.</p>
+                </a>
+                <a href="#getting-started" class="docs-card">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        ML &amp; Decoding
+                    </h4>
+                    <p>Train classifiers for motor imagery, SSVEP, P300, and event-related potentials using built-in pipelines.</p>
+                </a>
+                <a href="#getting-started" class="docs-card">
+                    <h4>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00ffcc" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        Examples &amp; Notebooks
+                    </h4>
+                    <p>Jupyter notebooks for common BCI tasks: alpha-wave detection, sleep staging, and concentration tracking.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Community ────────────────────────────────────── -->
+
+    <section id="community">
+        <div class="container">
+            <div class="section-label">Community</div>
+            <h3>Built by Researchers and Developers</h3>
+            <p class="section-desc">Neuralink Ninja is maintained by a global community of neuroscientists, engineers, and BCI enthusiasts. Join the conversation.</p>
+
+            <div class="community-grid">
+                <div class="community-card">
+                    <h4>
+                        <svg width="22" height="22" viewBox="0 0 16 16" fill="var(--text-light)"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                        GitHub
+                    </h4>
+                    <p>Browse the source, open issues, submit pull requests, and star the project to show your support.</p>
+                    <a href="https://github.com/neuralink-ninja" target="_blank" rel="noopener">View Repository &rarr;</a>
+                </div>
+
+                <div class="community-card">
+                    <h4>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        Discord
+                    </h4>
+                    <p>Real-time chat with 800+ members. Get help, share your projects, and discuss BCI research.</p>
+                    <a href="https://discord.gg/neuralink-ninja" target="_blank" rel="noopener">Join Discord &rarr;</a>
+                </div>
+
+                <div class="community-card">
+                    <h4>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text-light)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        Mailing List
+                    </h4>
+                    <p>Monthly newsletter with release notes, featured community projects, and BCI research highlights.</p>
+                    <a href="#community">Subscribe &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Contributing ─────────────────────────────────── -->
+
+    <section id="contributing" style="background: rgba(0, 255, 204, 0.02);">
+        <div class="container">
+            <div class="contributing-content">
+                <div class="section-label">Open Source</div>
+                <h3>Contributing</h3>
+                <p>Neuralink Ninja thrives because of its contributors. Whether you fix a typo, add a device driver, or build a new decoder, every contribution matters. We follow a standard fork-and-PR workflow.</p>
+
+                <div class="contrib-steps">
+                    <div class="contrib-step">
+                        <div class="step-num">01</div>
+                        <h4>Fork &amp; Clone</h4>
+                        <p>Fork the repository, clone it locally, and create a feature branch from <code>main</code>.</p>
+                    </div>
+                    <div class="contrib-step">
+                        <div class="step-num">02</div>
+                        <h4>Develop</h4>
+                        <p>Write your code, add tests with pytest, and make sure <code>make lint</code> passes cleanly.</p>
+                    </div>
+                    <div class="contrib-step">
+                        <div class="step-num">03</div>
+                        <h4>Submit a PR</h4>
+                        <p>Open a pull request with a clear description. A maintainer will review within 48 hours.</p>
+                    </div>
+                    <div class="contrib-step">
+                        <div class="step-num">04</div>
+                        <h4>Get Merged</h4>
+                        <p>After review and CI passes, your code ships in the next release. You earn contributor credit.</p>
+                    </div>
+                </div>
+
+                <a href="https://github.com/neuralink-ninja" target="_blank" rel="noopener" class="cta-button">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ──────────────────────────────────────── -->
 
     <footer>
         <div class="container">
             <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">Neuralink Ninja</div>
+                    <p>An open-source toolkit for brain-computer interface development. Built by the community, for the community. MIT licensed.</p>
+                </div>
                 <div class="footer-section">
-                    <h4>Resources</h4>
+                    <h4>Project</h4>
                     <ul>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                        <li><a href="#features">Toolkit</a></li>
+                        <li><a href="#hardware">Supported Hardware</a></li>
                         <li><a href="#docs">Documentation</a></li>
-                        <li><a href="#api">API Reference</a></li>
-                        <li><a href="#tutorials">Tutorials</a></li>
-                        <li><a href="#blog">Blog</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Community</h4>
                     <ul>
-                        <li><a href="#github">GitHub</a></li>
-                        <li><a href="#discord">Discord</a></li>
-                        <li><a href="#forum">Forum</a></li>
-                        <li><a href="#contribute">Contribute</a></li>
+                        <li><a href="https://github.com/neuralink-ninja" target="_blank" rel="noopener">GitHub</a></li>
+                        <li><a href="https://discord.gg/neuralink-ninja" target="_blank" rel="noopener">Discord</a></li>
+                        <li><a href="#contributing">Contributing</a></li>
+                        <li><a href="#community">Mailing List</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h4>Support</h4>
+                    <h4>Resources</h4>
                     <ul>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#status">System Status</a></li>
-                        <li><a href="#security">Security</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#terms">Terms of Service</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                        <li><a href="#compliance">Compliance</a></li>
-                        <li><a href="#licenses">Licenses</a></li>
+                        <li><a href="#docs">API Reference</a></li>
+                        <li><a href="#docs">Tutorials</a></li>
+                        <li><a href="#docs">Examples</a></li>
+                        <li><a href="https://github.com/neuralink-ninja/neuralink-ninja/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2026 Neuralink Ninja. All rights reserved. Building the future of neural enhancement.</p>
+                <p>&copy; 2026 Neuralink Ninja contributors. Released under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener">MIT License</a>.</p>
             </div>
         </div>
     </footer>
 
+    <!-- ── Scripts ─────────────────────────────────────── -->
+
     <script>
+        // Mobile menu toggle
         const mobileToggle = document.querySelector('.mobile-toggle');
         const nav = document.querySelector('nav');
 
@@ -477,21 +1318,24 @@
             nav.classList.toggle('active');
         });
 
+        // Close mobile menu when a link is tapped
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
                 nav.classList.remove('active');
             });
         });
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+        // Copy install command
+        const installBtn = document.querySelector('.hero-install');
+        if (installBtn) {
+            installBtn.addEventListener('click', () => {
+                const hint = installBtn.querySelector('.copy-hint');
+                if (hint) {
+                    hint.textContent = 'copied!';
+                    setTimeout(() => { hint.textContent = 'click to copy'; }, 2000);
                 }
             });
-        });
+        }
     </script>
 </body>
 </html>
