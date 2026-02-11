@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Neuralink Ninja is a brain-computer interface development project. EEG signal processing, Python and C++ SDKs, and real-time neural data streaming. Currently in development.">
-    <title>Neuralink Ninja - Open-Source Brain-Computer Interface Toolkit</title>
+    <meta name="description" content="Neural Ninja is a brain-computer interface development project. EEG signal processing, Python and C++ SDKs, and real-time neural data streaming. Currently in development.">
+    <title>Neural Ninja - Open-Source Brain-Computer Interface Toolkit</title>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2300ffcc"/><stop offset="100%" style="stop-color:%23FF3366"/></linearGradient></defs><path d="M16 4L4 16l12 12 12-12L16 4z" fill="url(%23g)" stroke="%2300ffcc" stroke-width="1"/><circle cx="16" cy="16" r="6" fill="none" stroke="%2300ffcc" stroke-width="1"/><path d="M16 10v12M10 16h12" stroke="%2300ffcc" stroke-width="1"/></svg>'>
     <style>
@@ -851,7 +851,7 @@
                     <circle cx="25" cy="25" r="10" stroke="#00ffcc" stroke-width="2"/>
                     <path d="M25 15V35M15 25H35" stroke="#00ffcc" stroke-width="2"/>
                 </svg>
-                <h1>Neuralink Ninja</h1>
+                <h1>Neural Ninja</h1>
             </a>
             <button class="mobile-toggle" aria-label="Toggle navigation menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -885,7 +885,7 @@
             <p class="hero-sub">Python &amp; C++ SDKs &middot; Open Source &middot; Built by researchers, for everyone</p>
 
             <div class="hero-install">
-                <span class="dollar">$</span> pip install neuralink-ninja <span style="opacity:0.5"># coming soon</span>
+                <span class="dollar">$</span> pip install neural-ninja <span style="opacity:0.5"># coming soon</span>
             </div>
 
             <div class="hero-buttons">
@@ -1012,7 +1012,7 @@
                 <div class="gs-text">
                     <div class="section-label">Quick Start</div>
                     <h3>Getting Started</h3>
-                    <p>Neuralink Ninja will target Python 3.9+ on macOS, Linux, and Windows. Install with pip, connect your device, and start streaming data.</p>
+                    <p>Neural Ninja will target Python 3.9+ on macOS, Linux, and Windows. Install with pip, connect your device, and start streaming data.</p>
                     <ol>
                         <li><strong>Install the package</strong> via pip or from source on GitHub</li>
                         <li><strong>Connect your EEG device</strong> &mdash; auto-discovery handles the rest</li>
@@ -1029,10 +1029,10 @@
                         <div class="code-dot"></div>
                         <span>quickstart.py</span>
                     </div>
-                    <pre><code><span class="code-comment"># pip install neuralink-ninja  (coming soon)</span>
+                    <pre><code><span class="code-comment"># pip install neural-ninja  (coming soon)</span>
 
-<span class="code-keyword">from</span> neuralink_ninja <span class="code-keyword">import</span> <span class="code-func">Board</span>, <span class="code-func">FilterPipeline</span>
-<span class="code-keyword">from</span> neuralink_ninja.viz <span class="code-keyword">import</span> <span class="code-func">LivePlot</span>
+<span class="code-keyword">from</span> neural_ninja <span class="code-keyword">import</span> <span class="code-func">Board</span>, <span class="code-func">FilterPipeline</span>
+<span class="code-keyword">from</span> neural_ninja.viz <span class="code-keyword">import</span> <span class="code-func">LivePlot</span>
 
 <span class="code-comment"># Auto-detect connected EEG device</span>
 board = <span class="code-func">Board</span>.<span class="code-func">auto_connect</span>()
@@ -1065,7 +1065,7 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
         <div class="container">
             <div class="section-label">Compatibility</div>
             <h3>Supported Hardware</h3>
-            <p class="section-desc">Neuralink Ninja provides first-class driver support for popular consumer and research-grade EEG devices. Community-contributed drivers extend support further.</p>
+            <p class="section-desc">Neural Ninja provides first-class driver support for popular consumer and research-grade EEG devices. Community-contributed drivers extend support further.</p>
 
             <div class="hardware-grid">
                 <div class="hardware-card">
@@ -1137,7 +1137,7 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
     <section id="docs" style="background: rgba(0, 255, 204, 0.02);">
         <div class="container">
             <div class="section-label">Documentation</div>
-            <h3>Learn Neuralink Ninja</h3>
+            <h3>Learn Neural Ninja</h3>
             <p class="section-desc">Comprehensive guides for every experience level. From first-time EEG users to researchers building custom neural decoders.</p>
 
             <div class="docs-grid">
@@ -1193,7 +1193,7 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
         <div class="container">
             <div class="section-label">Community</div>
             <h3>Built by Researchers and Developers</h3>
-            <p class="section-desc">Neuralink Ninja is maintained by a global community of neuroscientists, engineers, and BCI enthusiasts. Join the conversation.</p>
+            <p class="section-desc">Neural Ninja is maintained by a global community of neuroscientists, engineers, and BCI enthusiasts. Join the conversation.</p>
 
             <div class="community-grid">
                 <div class="community-card">
@@ -1233,7 +1233,7 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
             <div class="contributing-content">
                 <div class="section-label">Open Source</div>
                 <h3>Contributing</h3>
-                <p>Neuralink Ninja thrives because of its contributors. Whether you fix a typo, add a device driver, or build a new decoder, every contribution matters. We follow a standard fork-and-PR workflow.</p>
+                <p>Neural Ninja thrives because of its contributors. Whether you fix a typo, add a device driver, or build a new decoder, every contribution matters. We follow a standard fork-and-PR workflow.</p>
 
                 <div class="contrib-steps">
                     <div class="contrib-step">
@@ -1269,7 +1269,7 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <div class="footer-logo">Neuralink Ninja</div>
+                    <div class="footer-logo">Neural Ninja</div>
                     <p>An open-source toolkit for brain-computer interface development. Built by the community, for the community.</p>
                 </div>
                 <div class="footer-section">
@@ -1296,12 +1296,12 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
                         <li><a href="#docs">API Reference</a></li>
                         <li><a href="#docs">Tutorials</a></li>
                         <li><a href="#docs">Examples</a></li>
-                        <li><a href="#/neuralink-ninja/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
+                        <li><a href="#">Changelog</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2026 Neuralink Ninja. An open-source project in development.</p>
+                <p>&copy; 2026 Neural Ninja. An open-source project in development.</p>
             </div>
         </div>
     </footer>
