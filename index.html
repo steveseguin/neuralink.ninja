@@ -147,13 +147,13 @@
         .hero h2 {
             font-size: clamp(2rem, 5vw, 3rem);
             margin-bottom: 20px;
-            line-height: 1.15;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            line-height: 1.12;
+            letter-spacing: -0.02em;
+            color: var(--text-light);
             font-weight: 800;
         }
+
+        .hero h2 span { color: var(--primary); }
 
         .hero p {
             font-size: 1.1em;
@@ -385,9 +385,9 @@
         /* Contributing */
         .contrib-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 16px;
-            margin: 28px 0;
+            margin: 32px 0;
         }
 
         .contrib-step {
@@ -519,6 +519,11 @@
             .footer-content { grid-template-columns: 1fr; }
             .roadmap-item { grid-template-columns: 1fr; gap: 6px; }
             .roadmap-phase { font-size: 0.78rem; }
+            .contrib-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 460px) {
+            .contrib-steps { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -558,7 +563,7 @@
     <div class="hero">
         <div class="container hero-content">
             <div class="hero-badge">alpha &mdash; things will break</div>
-            <h2>BCI development shouldn't require a PhD</h2>
+            <h2>BCI development shouldn't <span>require a PhD</span></h2>
             <p>Open-source Python toolkit for reading EEG data, processing neural signals, and building brain-computer interfaces. Supports consumer hardware. Actually documented.</p>
             <p class="hero-sub">We're not pretending this is production-ready. But it works, and it's getting better every week.</p>
 
@@ -728,7 +733,7 @@ filtered = pipeline.<span class="code-func">apply</span>(epoch)
 
     <!-- Contributing -->
     <section id="contributing" style="background: rgba(0, 255, 204, 0.02);">
-        <div class="container" style="max-width: 780px; text-align: center;">
+        <div class="container" style="max-width: 1000px; text-align: center;">
             <div class="section-label reveal">Open Source</div>
             <h3 class="reveal">We need help</h3>
             <p class="section-desc reveal" style="margin-left: auto; margin-right: auto;">This is a nights-and-weekends project that wants to be more than that. If you know signal processing, BCI paradigms, or just want better docs &mdash; PRs are open.</p>
